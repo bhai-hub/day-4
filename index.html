@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'ANATOMIE &bull; Haute Joaillerie for Healers</title>
+  <meta name="description" content="L'ANATOMIE &bull; Haute Joaillerie conceived for the healing hand. Human Anatomy Collection: Nerves, Arteries, Veins, and Bones.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23e5c378'>✦</text></svg>">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-gold">
+
+  <!-- Custom Cursor & Pulse Rings -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Fullscreen Interactive Arterial Pulse Ripple Canvas (Page 6) -->
+  <canvas id="pulse-canvas"></canvas>
+
+  <!-- =========================================================================
+       PAGE 2 & 4: SITE NAVIGATION
+       - Center: Logo
+       - Left: 'Collection'
+       - Right: 'About'
+       - Far Right: Small Bag Icon (Cart)
+       - Omitted: All crossed-out icons (social, audio, extra pills)
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-left">
+      <a href="#collection" class="nav-link" id="navCollectionBtn">Collection</a>
+    </div>
+
+    <div class="nav-center">
+      <a href="#" class="nav-logo" aria-label="L'ANATOMIE Home">
+        <span>L'ANATOMIE</span>
+        <span class="logo-star">✦</span>
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <a href="#about" class="nav-link" id="navAboutBtn">About</a>
+      
+      <!-- Rightmost Cart Bag Option -->
+      <button class="nav-bag" id="cartBtn" aria-label="Shopping Bag">
+        <svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="bag-count" id="bagCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Discreet Side Deck Indicator: 01 Nerves, 02 Arteries, 03 Veins, 04 Bones -->
+  <nav class="frame-nav" aria-label="Anatomical Frames">
+    <button class="frame-nav-item active" data-frame-id="frame-nerves" aria-label="Frame 01: Nerves">
+      <span class="frame-nav-dot"></span>
+      <span class="frame-nav-label">01 Nerves</span>
+    </button>
+    <button class="frame-nav-item" data-frame-id="frame-arteries" aria-label="Frame 02: Arteries">
+      <span class="frame-nav-dot"></span>
+      <span class="frame-nav-label">02 Arteries</span>
+    </button>
+    <button class="frame-nav-item" data-frame-id="frame-veins" aria-label="Frame 03: Veins">
+      <span class="frame-nav-dot"></span>
+      <span class="frame-nav-label">03 Veins</span>
+    </button>
+    <button class="frame-nav-item" data-frame-id="frame-bones" aria-label="Frame 04: Bones">
+      <span class="frame-nav-dot"></span>
+      <span class="frame-nav-label">04 Bones</span>
+    </button>
+  </nav>
+
+  <!-- =========================================================================
+       MAIN ANATOMICAL FRAMES CONTAINER
+       ========================================================================= -->
+  <main class="frames-container">
+
+    <!-- =======================================================================
+         FRAME 1: NERVES &bull; CHAMPAGNE GOLD & ANTIQUE BRONZE
+         Page 2, 3, 4, 5 Specifications:
+         - Color: Champagne gold / Yellow to depict nerves
+         - Warm, golden-brown background of textured, rippled glass with water running down it
+         - Model from Page 5 with background completely removed, isolated in transparent alpha
+         - Center Motto: "WHERE ANATOMY MEETS timeless ARTISTRY"
+         - Crossed-out button omitted
+         ======================================================================= -->
+    <section class="frame-section" id="frame-nerves">
+      <!-- Background: Warm Golden-Brown Champagne Textured Rippled Glass with Water -->
+      <div class="hero-stage-backdrop">
+        <img class="hero-bg-fluted-img" id="heroFlutedBg" src="assets/images/hero-physician-fluted.jpg" alt="L'ANATOMIE &bull; Haute Joaillerie"/>
+        <div class="hero-ambient-vignette"></div>
+        <canvas id="heroWaterCanvas" class="hero-water-canvas"></canvas>
+      </div>
+
+      <!-- Center Motto (Page 2, 3 & 4 Match) -->
+      <div class="hero-typography-stage">
+        <div class="hero-motto-title">
+          <h1 class="motto-text-top">WHERE ANATOMY MEETS</h1>
+          <span class="motto-text-script">timeless</span>
+          <span class="motto-text-bottom">ARTISTRY</span>
+        </div>
+        <p class="hero-subtitle">THE ANATOMICAL HAUTE JOAILLERIE &bull; MAISON GENÈVE</p>
+      </div>
+
+      <!-- Hero Scroll Cue -->
+      <a href="#frame-arteries" class="hero-scroll-cue" id="heroScrollCue">
+        <span class="scroll-cue-text">Descend to Arteries</span>
+        <div class="scroll-cue-line">
+          <div class="scroll-cue-pulse"></div>
+        </div>
+      </a>
+    </section>
+
+    <!-- =======================================================================
+         FRAME 2: ARTERIES &bull; OXBLOOD RED
+         Page 6 & Page 7 Specifications:
+         - Background: Oxblood Red
+         - Best piece displayed: Ruby gemstone jewellery
+         - Floating on the screen without background frames, shown in different angles
+         - Floating 4-pointed star sparkle
+         - Clicking transfers to dedicated showcase page in same color (Page 8)
+         ======================================================================= -->
+    <section class="frame-section" id="frame-arteries">
+      <div class="floating-stage">
+        
+        <div class="frame-context-tag">
+          <h2 class="frame-headline">The Arterial Ruby</h2>
+        </div>
+
+        <!-- Floating Jewellery Canvas: Angles directly from Page 7 Reference -->
+        <div class="jewellery-floating-canvas" id="arteriesJewelryCanvas">
+          
+          <!-- Luminous Heartbeat Ambient Pulse Field -->
+          <div class="vascular-pulse-field"></div>
+
+          <!-- Angle 1: Front Pair (Top-Left) -->
+          <div class="floating-jewel-item jewel-ruby-front-pair" data-product-trigger="ruby" title="Inspect Front View &bull; 4.85 TCW Burmese Ruby">
+            <img src="assets/images/ruby-angle-front-pair.png" alt="Arterial Ruby Earrings - Front Pair"/>
+          </div>
+
+          <!-- Angle 2: 45-Degree Center Tilt -->
+          <div class="floating-jewel-item jewel-ruby-tilt" data-product-trigger="ruby" title="Inspect 45° Perspective &bull; Cushion Cut & Diamond Halo">
+            <img src="assets/images/ruby-angle-tilt.png" alt="Arterial Ruby Earrings - 45 Degree Angle"/>
+          </div>
+
+          <!-- Angle 3: Side Profile Clasp (Top-Right) -->
+          <div class="floating-jewel-item jewel-ruby-profile" data-product-trigger="ruby" title="Inspect Surgical Profile &bull; Zero-Snag Clip Clasp">
+            <img src="assets/images/ruby-angle-profile.png" alt="Arterial Ruby Earrings - Side Profile"/>
+          </div>
+
+          <!-- Star Sparkle (Page 7 Reference Match) -->
+          <div class="floating-sparkle">
+            <img src="assets/images/star-sparkle.png" alt="Light Sparkle"/>
+          </div>
+
+        </div>
+
+        <!-- Minimal Action Prompt -->
+        <div class="floating-action-prompt">
+          <span class="action-subtle">Click piece to explore</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         FRAME 3: VEINS &bull; PRUSSIAN BLUE
+         Page 1 & Page 7 Specifications:
+         - Background: Prussian Blue
+         - Displays Sapphire gemstone jewellery floating without background frames
+         ======================================================================= -->
+    <section class="frame-section" id="frame-veins">
+      <div class="floating-stage">
+        
+        <div class="frame-context-tag">
+          <h2 class="frame-headline">The Cerebral Sapphire</h2>
+        </div>
+
+        <div class="jewellery-floating-canvas" id="veinsJewelryCanvas">
+          
+          <div class="vascular-pulse-field" style="background: radial-gradient(circle, rgba(74, 148, 224, 0.12) 0%, transparent 70%);"></div>
+
+          <!-- Main Floating Sapphire Ring -->
+          <div class="floating-jewel-item jewel-sapphire-main" data-product-trigger="sapphire" title="Inspect Cerebral Sapphire Signet">
+            <img src="assets/images/ring-sapphire-cerebral.jpg" style="border-radius: 8px; max-width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.8);" alt="Royal Sapphire Signet"/>
+          </div>
+
+          <div class="floating-jewel-item jewel-sapphire-pendant" data-product-trigger="sapphire" title="Inspect Facet Geometry">
+            <img src="assets/images/royal-sapphire.jpg" style="border-radius: 8px; width: 100%; box-shadow: 0 15px 30px rgba(0,0,0,0.7);" alt="Royal Sapphire Facet"/>
+          </div>
+
+          <div class="floating-sparkle" style="top: 25%; left: 14%;">
+            <img src="assets/images/star-sparkle.png" alt="Light Sparkle"/>
+          </div>
+
+        </div>
+
+        <div class="floating-action-prompt">
+          <span class="action-subtle">Click piece to explore</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         FRAME 4: BONES &bull; BONE WHITE & WARM ALABASTER
+         Page 1 & Page 5 Specifications:
+         - Background: Bone White
+         - Displays Diamond & Pearl jewellery (Model's Pearl Earring from Page 5)
+         ======================================================================= -->
+    <section class="frame-section" id="frame-bones">
+      <div class="floating-stage">
+        
+        <div class="frame-context-tag">
+          <h2 class="frame-headline">The Physician Pearl</h2>
+        </div>
+
+        <div class="jewellery-floating-canvas" id="bonesJewelryCanvas">
+          
+          <div class="vascular-pulse-field" style="background: radial-gradient(circle, rgba(142, 116, 84, 0.12) 0%, transparent 70%);"></div>
+
+          <!-- Editorial Model wearing the piece (Page 5) -->
+          <div class="floating-jewel-item jewel-pearl-drop-main" data-product-trigger="pearl" title="Inspect Physician Pearl Drop as Worn">
+            <img src="assets/images/piece-pearl-bone.jpg" style="border-radius: 8px; max-width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.18);" alt="Physician Pearl Drop"/>
+          </div>
+
+          <div class="floating-jewel-item jewel-diamond-facet" data-product-trigger="pearl" title="Inspect Diamond Facets">
+            <img src="assets/images/diamond-facets.jpg" style="border-radius: 8px; width: 100%; box-shadow: 0 15px 30px rgba(0,0,0,0.15);" alt="D-Flawless Diamond Facets"/>
+          </div>
+
+          <div class="floating-sparkle" style="bottom: 20%; right: 18%;">
+            <img src="assets/images/star-sparkle.png" alt="Light Sparkle" style="filter: brightness(0.2);"/>
+          </div>
+
+        </div>
+
+        <div class="floating-action-prompt">
+          <span class="action-subtle">Click piece to explore</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       PAGE 8: DEDICATED PRODUCT SHOWCASE OVERLAY
+       "When the customer clicks on it, it will transfer them to a different page
+        where the jewellery is completely shown on the same colored screen from before."
+       ========================================================================= -->
+  <div class="product-showcase-overlay" id="productShowcaseOverlay" data-theme="oxblood">
+    
+    <header class="showcase-header">
+      <button class="back-to-frames-btn" id="backToFramesBtn">
+        <span>&larr;</span>
+        <span>Return to Anatomical Atlas</span>
+      </button>
+
+      <span class="showcase-brand-mark" id="showcaseBrandMark">L'ANATOMIE &bull; ARTERIAL SUITE</span>
+
+      <div style="width: 140px; text-align: right;">
+        <span style="font-size: 0.72rem; letter-spacing: 0.2em; opacity: 0.7;">HAUTE JOAILLERIE</span>
+      </div>
+    </header>
+
+    <div class="showcase-body">
+      
+      <!-- Visual Stage (Left) -->
+      <div class="product-visual-stage">
+        <div class="product-main-display">
+          <img class="product-hero-image" id="showcaseHeroImg" src="assets/images/ruby-angle-front-pair.png" alt="Jewellery Piece Macro"/>
+        </div>
+
+        <!-- Multi-Angle Switcher (Page 7 & Page 8) -->
+        <div class="product-angles-bar" id="showcaseAnglesBar">
+          <!-- Populated dynamically by script.js -->
+        </div>
+      </div>
+
+      <!-- Anatomical Dossier (Right) -->
+      <div class="product-dossier-stage">
+        <div class="dossier-ref" id="dossierRef">REF. AR-02 &bull; ARTERIAL SUITE</div>
+        <h2 class="dossier-title" id="dossierTitle">The Arterial Ruby Suite</h2>
+        <p class="dossier-tagline" id="dossierTagline">Forged for the pulsating rhythm of the healer’s hand.</p>
+        
+        <p class="dossier-narrative" id="dossierNarrative">
+          Hand-sculpted in hypoallergenic 950 platinum and 18K rose gold, featuring certified unheated Burmese pigeon-blood rubies encircled by D-Flawless brilliant diamonds. The clip clasp is specifically calibrated flush to effortlessly slide under surgical latex and nitrile gloves without snagging during delicate micro-vascular procedures.
+        </p>
+
+        <div class="dossier-specs-table" id="dossierSpecs">
+          <!-- Populated by script.js -->
+        </div>
+
+        <div class="dossier-actions">
+          <div class="spec-key">Clasp Calibration</div>
+          <div class="clasp-simple-text">Surgical Clip Clasp &bull; Calibrated Flush</div>
+
+          <button class="add-to-bag-btn" id="addToBagBtn">
+            <span>Add to Bag</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       SHOPPING BAG DRAWER
+       ========================================================================= -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <span class="cart-title">Your Anatomical Bag</span>
+        <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Bag">&times;</button>
+      </div>
+
+      <div class="cart-items-list" id="cartItemsList">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-subtotal-row">
+          <span>Estimated Total</span>
+          <span id="cartSubtotal">$0</span>
+        </div>
+        <button class="cart-checkout-btn" onclick="alert('Your bespoke anatomical commission inquiry has been transmitted to our Geneva Atelier Concierge.');">
+          Request Private Concierge Liaison
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       COLLECTION DIRECTORY MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="collectionModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="collectionCloseBtn" aria-label="Close Modal">&times;</button>
+      <h2 class="modal-title">The Anatomical Chapters</h2>
+      <p class="modal-subtitle">Four physiological domains forged into permanent fine jewelry</p>
+
+      <div class="collection-grid">
+        <a href="#frame-nerves" class="collection-card" data-scroll-to="frame-nerves">
+          <span class="card-tag">Chapter 01 &bull; Champagne Amber</span>
+          <h3 class="card-title">The Nerves</h3>
+          <p class="card-desc">Synaptic electrical impulses and sensory pathways forged in warm 18K antique bronze gold.</p>
+        </a>
+
+        <a href="#frame-arteries" class="collection-card" data-scroll-to="frame-arteries">
+          <span class="card-tag">Chapter 02 &bull; Oxblood Red</span>
+          <h3 class="card-title">The Arteries</h3>
+          <p class="card-desc">The vital rhythm of oxygenated blood sculpted in certified unheated Burmese pigeon-blood rubies.</p>
+        </a>
+
+        <a href="#frame-veins" class="collection-card" data-scroll-to="frame-veins">
+          <span class="card-tag">Chapter 03 &bull; Prussian Blue</span>
+          <h3 class="card-title">The Veins</h3>
+          <p class="card-desc">Venous structural composure and cerebral clarity manifested in royal Ceylon sapphire and platinum.</p>
+        </a>
+
+        <a href="#frame-bones" class="collection-card" data-scroll-to="frame-bones">
+          <span class="card-tag">Chapter 04 &bull; Bone White</span>
+          <h3 class="card-title">The Skeleton</h3>
+          <p class="card-desc">Purity, permanent structural foundation, and diamond clarity forged in South Sea pearls and D-Flawless solitaires.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       ABOUT EDITORIAL MODAL (Featuring Page 5 Model Photo)
+       ========================================================================= -->
+  <div class="modal-overlay" id="aboutModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="aboutCloseBtn" aria-label="Close Modal">&times;</button>
+      <h2 class="modal-title">Where Anatomy Meets Artistry</h2>
+      <p class="modal-subtitle">Crafted for sacred hands that heal</p>
+
+      <div class="about-split-content">
+        <div>
+          <!-- Model Photo from Page 5 with background removed -->
+          <img class="about-model-portrait" src="assets/images/model-physician-cutout.png" alt="Editorial Physician Portrait"/>
+        </div>
+
+        <div class="about-narrative">
+          <p class="about-quote">
+            “A private sanctuary for devoted physicians &mdash; honoring the biological miracles held daily in their hands.”
+          </p>
+          <p>
+            L'ANATOMIE is born at the intersection of surgical precision and high jewelry. Recognizing that physicians live in a world of chlorhexidine scrubs, latex gloves, autoclave sterilization, and intense tactile duty, traditional jewelry is often left behind.
+          </p>
+          <p>
+            Every piece in our Maison is engineered in biocompatible, hypoallergenic 950 platinum and medical-grade alloys. Contours are flush-mounted, bezels are beveled for smooth glove donning, and the gemstones reflect the cardinal colors of human physiology.
+          </p>
+          <p style="font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6;">
+            GENÈVE &bull; ZÜRICH &bull; NEW YORK &bull; TOKYO
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

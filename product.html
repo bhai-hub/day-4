@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'ANATOMIE &bull; Dedicated Jewellery Showcase</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23e6c575'>✦</text></svg>">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Italiana&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Standalone Product Page Layout */
+    body.standalone-product {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="standalone-product theme-oxblood" id="standaloneBody">
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="pulse-canvas"></canvas>
+
+  <header class="showcase-header">
+    <a href="index.html" class="back-to-frames-btn">
+      <span>←</span>
+      <span>Return to Anatomical Atlas</span>
+    </a>
+
+    <span class="showcase-brand-mark" id="showcaseBrandMark">L'ANATOMIE &bull; ARTERIAL SUITE</span>
+
+    <button class="nav-bag" id="cartBtn" aria-label="Shopping Bag">
+      <svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="bag-count" id="bagCount">0</span>
+    </button>
+  </header>
+
+  <main class="showcase-body" style="margin-top: 1.5rem;">
+    <!-- Visual Stage (Left) -->
+    <div class="product-visual-stage">
+      <div class="product-main-display">
+        <img class="product-hero-image" id="standaloneHeroImg" src="assets/images/ruby-angle-front-pair.png" alt="Jewellery Piece Macro"/>
+      </div>
+
+      <div class="product-angles-bar" id="standaloneAnglesBar">
+        <!-- Injected via script -->
+      </div>
+    </div>
+
+    <!-- Anatomical Dossier (Right) -->
+    <div class="product-dossier-stage">
+      <div class="dossier-ref" id="dossierRef">REF. AR-02 &bull; ARTERIAL SUITE</div>
+      <h1 class="dossier-title" id="dossierTitle">The Arterial Ruby Suite</h1>
+      <p class="dossier-tagline" id="dossierTagline">Forged for the pulsating rhythm of the healer’s hand.</p>
+      
+      <p class="dossier-narrative" id="dossierNarrative">
+        Hand-sculpted in hypoallergenic 950 platinum and 18K rose gold, featuring certified unheated Burmese pigeon-blood rubies encircled by D-Flawless brilliant diamonds. The clip clasp is specifically calibrated flush to effortlessly slide under surgical latex and nitrile gloves without snagging during delicate micro-vascular procedures.
+      </p>
+
+      <div class="dossier-specs-table" id="dossierSpecs">
+        <div class="spec-item"><span class="spec-key">Gemstone</span><span class="spec-val">4.85 TCW Pigeon-Blood Burmese Rubies</span></div>
+        <div class="spec-item"><span class="spec-key">Diamonds</span><span class="spec-val">1.40 TCW D-Flawless (VVS1)</span></div>
+        <div class="spec-item"><span class="spec-key">Precious Metals</span><span class="spec-val">950 Platinum &amp; 18K Rose Gold</span></div>
+        <div class="spec-item"><span class="spec-key">Clinical Finish</span><span class="spec-val">Hypoallergenic &bull; Autoclave Tested</span></div>
+      </div>
+
+      <div class="dossier-actions">
+        <div class="spec-key">Clasp Calibration</div>
+        <div class="clasp-simple-text">Surgical Clip Clasp &bull; Calibrated Flush</div>
+
+        <button class="add-to-bag-btn" id="addToBagBtn">
+          <span>Add to Bag</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <span class="cart-title">Your Anatomical Bag</span>
+        <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Bag">&times;</button>
+      </div>
+
+      <div class="cart-items-list" id="cartItemsList"></div>
+
+      <div class="cart-footer">
+        <div class="cart-subtotal-row">
+          <span>Estimated Total</span>
+          <span id="cartSubtotal">$0</span>
+        </div>
+        <button class="cart-checkout-btn" onclick="alert('Your bespoke anatomical commission inquiry has been transmitted to our Geneva Atelier Concierge.');">
+          Request Private Concierge Liaison
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Standalone product controller matching URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const piece = params.get('piece') || 'ruby';
+
+    const PRODUCTS = {
+      'ruby': {
+        name: 'The Arterial Ruby Suite',
+        ref: 'REF. AR-02 &bull; ARTERIAL SUITE',
+        system: 'Arteries &bull; Oxygenated Life Force',
+        theme: 'oxblood',
+        bgColor: '#450407',
+        tagline: 'Forged for the pulsating rhythm of the healer’s hand.',
+        description: 'Hand-sculpted in 950 platinum and 18K rose gold set with unheated Burmese pigeon-blood rubies and D-Flawless diamonds, calibrated flush for delicate surgical composure.',
+        specs: {
+          'Gemstone': '4.85 TCW Pigeon-Blood Burmese Rubies',
+          'Diamonds': '1.40 TCW D-Flawless',
+          'Precious Metals': '950 Platinum & 18K Rose Gold',
+          'Calibration': 'Flush Surgical Post &bull; Zero Snag'
+        },
+        angles: [
+          { label: 'Front Pair', src: 'assets/images/ruby-angle-front-pair.png' },
+          { label: '45° Tilt', src: 'assets/images/ruby-angle-tilt.png' },
+          { label: 'Profile Clasp', src: 'assets/images/ruby-angle-profile.png' },
+          { label: 'Master Macro', src: 'assets/images/ruby-earrings-oxblood.jpg' }
+        ],
+        price: '$28,500'
+      },
+      'sapphire': {
+        name: 'The Cerebral Sapphire Signet',
+        ref: 'REF. CS-03 &bull; VENOUS SUITE',
+        system: 'Veins &bull; Neurological Architecture',
+        theme: 'prussian',
+        bgColor: '#091a2b',
+        tagline: 'Precision cerebral composure etched into royal Ceylon sapphire.',
+        description: 'Unheated royal Ceylon sapphire cradled in cold-forged 950 platinum with hand-carved Caduceus rhythm detailing and contoured comfort shank.',
+        specs: {
+          'Gemstone': '5.20ct Royal Ceylon Sapphire',
+          'Emblem': 'Hand-Carved Caduceus Band',
+          'Precious Metals': 'Cold-Forged 950 Iridium-Platinum',
+          'Finish': 'Antimicrobial Non-Reactive Finish'
+        },
+        angles: [
+          { label: 'Crown Facet', src: 'assets/images/ring-sapphire-cerebral.jpg' },
+          { label: 'Signet Band', src: 'assets/images/royal-sapphire.jpg' },
+          { label: 'Model Styling', src: 'assets/images/model-physician-vogue.png' }
+        ],
+        price: '$34,000'
+      },
+      'pearl': {
+        name: 'The Physician Pearl Drop',
+        ref: 'REF. PD-04 &bull; SKELETAL SUITE',
+        system: 'Bones &bull; Skeletal Foundation & Clarity',
+        theme: 'bone',
+        bgColor: '#f4efe6',
+        tagline: 'Permanent elegance worn by the devoted physician.',
+        description: 'Luminous South Sea Akoya natural pearl paired with articulated D-Flawless diamonds in hypoallergenic 950 platinum, weighted for effortless grace.',
+        specs: {
+          'Pearl': '11.5mm South Sea Natural Akoya',
+          'Diamonds': '0.95ct Round Brilliant (D/IF)',
+          'Precious Metals': '950 Cold-Forged Platinum',
+          'Calibration': 'Zero-Torque Surgical Post'
+        },
+        angles: [
+          { label: 'Editorial View', src: 'assets/images/model-physician-vogue.png' },
+          { label: 'Macro Luster', src: 'assets/images/piece-pearl-bone.jpg' },
+          { label: 'Diamond Facets', src: 'assets/images/diamond-facets.jpg' }
+        ],
+        price: '$22,800'
+      }
+    };
+
+    const prod = PRODUCTS[piece] || PRODUCTS['ruby'];
+    document.body.className = `standalone-product theme-${prod.theme}`;
+    if (prod.theme === 'bone') {
+      document.body.style.background = 'radial-gradient(circle at 50% 45%, #fcfaf6 0%, #f4efe6 65%, #e2dad0 100%)';
+    } else if (prod.theme === 'prussian') {
+      document.body.style.background = 'radial-gradient(circle at 50% 50%, #102942 0%, #091a2b 70%, #030a12 100%)';
+    } else {
+      document.body.style.background = `radial-gradient(circle at 50% 50%, ${prod.bgColor} 0%, #150204 100%)`;
+    }
+
+    document.getElementById('showcaseBrandMark').innerHTML = `L'ANATOMIE &bull; ${prod.system}`;
+    document.getElementById('dossierRef').innerHTML = prod.ref;
+    document.getElementById('dossierTitle').textContent = prod.name;
+    document.getElementById('dossierTagline').textContent = prod.tagline;
+    document.getElementById('dossierNarrative').textContent = prod.description;
+
+    const specsTable = document.getElementById('dossierSpecs');
+    specsTable.innerHTML = '';
+    for (const [k, v] of Object.entries(prod.specs)) {
+      const item = document.createElement('div');
+      item.className = 'spec-item';
+      item.innerHTML = `<span class="spec-key">${k}</span><span class="spec-val">${v}</span>`;
+      specsTable.appendChild(item);
+    }
+
+    const heroImg = document.getElementById('standaloneHeroImg');
+    const anglesBar = document.getElementById('standaloneAnglesBar');
+    anglesBar.innerHTML = '';
+    prod.angles.forEach((angle, idx) => {
+      const btn = document.createElement('button');
+      btn.className = `angle-thumb-btn ${idx === 0 ? 'active' : ''}`;
+      btn.innerHTML = `<img src="${angle.src}" alt="${angle.label}"/>`;
+      btn.addEventListener('click', () => {
+        anglesBar.querySelectorAll('.angle-thumb-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        heroImg.style.opacity = '0';
+        setTimeout(() => {
+          heroImg.src = angle.src;
+          heroImg.style.opacity = '1';
+        }, 150);
+      });
+      anglesBar.appendChild(btn);
+    });
+    heroImg.src = prod.angles[0].src;
+
+    // Pulse Canvas
+    const canvas = document.getElementById('pulse-canvas');
+    const ctx = canvas.getContext('2d');
+    let ripples = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('click', (e) => {
+      ripples.push({ x: e.clientX, y: e.clientY, r: 0, a: 0.8 });
+    });
+    function anim() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rp = ripples[i];
+        rp.r += 3;
+        rp.a *= 0.96;
+        if (rp.a < 0.01) { ripples.splice(i, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${rp.a})`;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+      }
+      requestAnimationFrame(anim);
+    }
+    anim();
+
+    // Cursor tracking
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    window.addEventListener('mousemove', (e) => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>
