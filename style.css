@@ -339,6 +339,8 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 96%);
 }
 
 .hero-bg-fluted-img {
@@ -380,6 +382,19 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   pointer-events: none;
   z-index: 3;
   opacity: 0.85;
+}
+
+/* Hero Bottom Dissolve Fade */
+.hero-stage-backdrop::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 280px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(18, 9, 2, 0.5) 45%, #120902 100%);
+  pointer-events: none;
+  z-index: 4;
 }
 
 /* Center Motto Typography Stage */
@@ -504,6 +519,129 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
 }
 
 /* ==========================================================================
+   ANATOMICAL COLOUR TRANSITIONS BETWEEN FRAMES
+   1. Hero (Champagne Gold / Bronze) -> Arteries (Oxblood Red)
+   2. Arteries (Oxblood Red) -> Veins (Prussian Blue)
+   3. Veins (Prussian Blue) -> Bones (Bone White)
+   ========================================================================== */
+
+.color-transition-section {
+  width: 100%;
+  min-height: 260px;
+  padding: 4.5rem 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  user-select: none;
+  border: none !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 1. HERO TO RED (Gold/Amber -> Oxblood Ruby) */
+.transition-hero-to-red {
+  background: linear-gradient(
+    180deg,
+    #120902 0%,
+    #120902 12%,
+    #180c05 28%,
+    #240f0a 46%,
+    #300c10 66%,
+    #3b0306 88%,
+    #3b0306 100%
+  );
+}
+
+/* 2. RED TO BLUE (Oxblood Ruby -> Prussian Sapphire) */
+.transition-red-to-blue {
+  background: linear-gradient(
+    180deg,
+    #3b0306 0%,
+    #3b0306 12%,
+    #33040e 28%,
+    #27071c 44%,
+    #190b2b 62%,
+    #0e1132 80%,
+    #071524 90%,
+    #071524 100%
+  );
+}
+
+/* 3. BLUE TO WHITE (Prussian Sapphire -> Bone Alabaster) */
+.transition-blue-to-white {
+  background: linear-gradient(
+    180deg,
+    #071524 0%,
+    #071524 10%,
+    #0d1d2e 20%,
+    #172c40 32%,
+    #2a4055 46%,
+    #4d6377 60%,
+    #8295a6 74%,
+    #bec9d0 86%,
+    #e8ebe4 94%,
+    #f5f0e6 98%,
+    #f5f0e6 100%
+  );
+}
+
+/* Ultra-Minimal Luxury Transition Pill (Reduced Text) */
+.transition-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.45rem 1.4rem;
+  background: rgba(14, 10, 8, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.transition-hero-to-red .transition-pill {
+  border-color: rgba(229, 195, 120, 0.28);
+  background: linear-gradient(135deg, rgba(30, 16, 8, 0.5) 0%, rgba(50, 10, 15, 0.5) 100%);
+}
+
+.transition-red-to-blue .transition-pill {
+  border-color: rgba(230, 57, 80, 0.25);
+  background: linear-gradient(135deg, rgba(45, 10, 14, 0.55) 0%, rgba(12, 22, 40, 0.55) 100%);
+}
+
+.transition-blue-to-white .transition-pill {
+  border-color: rgba(140, 170, 200, 0.35);
+  background: linear-gradient(135deg, rgba(10, 20, 35, 0.65) 0%, rgba(60, 75, 90, 0.55) 100%);
+}
+
+.pill-node {
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.pill-glyph {
+  font-size: 0.66rem;
+  color: var(--color-gold-accent);
+  opacity: 0.85;
+}
+
+.transition-red-to-blue .pill-glyph {
+  color: #f07b8b;
+}
+
+.transition-blue-to-white .pill-glyph {
+  color: #a8ccf0;
+}
+
+/* ==========================================================================
    FRAME 2: ARTERIES • OXBLOOD RED
    Page 6 & Page 7 Specifications:
    - Rich Oxblood Red background
@@ -519,9 +657,11 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-oxblood-gradient);
+  background-color: #3b0306;
   color: var(--color-oxblood-text);
   overflow: hidden;
+  margin: 0;
+  border: none;
 }
 
 .floating-stage {
@@ -696,9 +836,11 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-prussian-gradient);
+  background-color: #071524;
   color: var(--color-prussian-text);
   overflow: hidden;
+  margin: 0;
+  border: none;
 }
 
 #frame-veins .context-pill { color: var(--color-prussian-accent); }
@@ -725,9 +867,11 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bone-gradient);
+  background-color: #f5f0e6;
   color: var(--color-bone-text);
   overflow: hidden;
+  margin: 0;
+  border: none;
 }
 
 #frame-bones .context-pill { color: var(--color-bone-accent); }
