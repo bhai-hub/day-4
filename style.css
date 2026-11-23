@@ -54,7 +54,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background-color: var(--color-gold-bg);
+  background-color: #120902;
   color: #ffffff;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
@@ -62,7 +62,7 @@ html, body {
 }
 
 body {
-  transition: background-color 1.2s var(--transition-smooth);
+  transition: color 0.4s ease;
 }
 
 /* Custom Minimalist Luxury Cursor */
@@ -327,6 +327,8 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   align-items: center;
   justify-content: center;
   background-color: #120902;
+  margin: 0;
+  border: none;
 }
 
 /* Background: Full-Bleed Fluted Rippled Glass with Model */
@@ -382,19 +384,6 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   pointer-events: none;
   z-index: 3;
   opacity: 0.85;
-}
-
-/* Hero Bottom Dissolve Fade */
-.hero-stage-backdrop::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 280px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(18, 9, 2, 0.5) 45%, #120902 100%);
-  pointer-events: none;
-  z-index: 4;
 }
 
 /* Center Motto Typography Stage */
@@ -527,8 +516,8 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
 
 .color-transition-section {
   width: 100%;
-  min-height: 260px;
-  padding: 4.5rem 2rem;
+  min-height: 280px;
+  padding: 5rem 2rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -552,7 +541,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
     #300c10 66%,
     #3b0306 88%,
     #3b0306 100%
-  );
+  ) !important;
 }
 
 /* 2. RED TO BLUE (Oxblood Ruby -> Prussian Sapphire) */
@@ -567,7 +556,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
     #0e1132 80%,
     #071524 90%,
     #071524 100%
-  );
+  ) !important;
 }
 
 /* 3. BLUE TO WHITE (Prussian Sapphire -> Bone Alabaster) */
@@ -585,7 +574,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
     #e8ebe4 94%,
     #f5f0e6 98%,
     #f5f0e6 100%
-  );
+  ) !important;
 }
 
 /* Ultra-Minimal Luxury Transition Pill (Reduced Text) */
@@ -657,7 +646,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #3b0306;
+  background-color: #3b0306 !important;
   color: var(--color-oxblood-text);
   overflow: hidden;
   margin: 0;
@@ -836,7 +825,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #071524;
+  background-color: #071524 !important;
   color: var(--color-prussian-text);
   overflow: hidden;
   margin: 0;
@@ -867,7 +856,7 @@ body.theme-bone .bag-count { background-color: var(--color-bone-text); color: #f
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f0e6;
+  background-color: #f5f0e6 !important;
   color: var(--color-bone-text);
   overflow: hidden;
   margin: 0;

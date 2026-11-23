@@ -326,15 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
   //  Frame 1 of yellow goes Red as you scroll down to frame 2."
   // =========================================================================
   const frames = [
-    { id: 'frame-nerves', theme: 'gold', rgb: '230, 197, 117', color: '#120902' },
-    { id: 'frame-arteries', theme: 'oxblood', rgb: '232, 54, 79', color: '#3b0306' },
-    { id: 'frame-veins', theme: 'prussian', rgb: '81, 152, 224', color: '#071524' },
-    { id: 'frame-bones', theme: 'bone', rgb: '157, 133, 103', color: '#f5f0e6' }
+    { id: 'frame-nerves', theme: 'gold', rgb: '230, 197, 117', bg: [18, 9, 2], glow: [229, 195, 120] },
+    { id: 'frame-arteries', theme: 'oxblood', rgb: '232, 54, 79', bg: [59, 3, 6], glow: [230, 57, 80] },
+    { id: 'frame-veins', theme: 'prussian', rgb: '81, 152, 224', bg: [7, 21, 36], glow: [74, 148, 224] },
+    { id: 'frame-bones', theme: 'bone', rgb: '157, 133, 103', bg: [245, 240, 230], glow: [142, 116, 84] }
   ];
 
   const siteHeader = document.getElementById('siteHeader');
   const frameNavItems = document.querySelectorAll('.frame-nav-item');
-  const transitionSections = document.querySelectorAll('.color-transition-section');
 
   function lerpRgb(rgb1, rgb2, t) {
     const [r1, g1, b1] = rgb1.split(',').map(Number);
@@ -343,23 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const g = Math.round(g1 + (g2 - g1) * t);
     const b = Math.round(b1 + (b2 - b1) * t);
     return `${r}, ${g}, ${b}`;
-  }
-
-  function lerpColor(hex1, hex2, t) {
-    const parse = hex => {
-      hex = hex.replace('#', '');
-      return [
-        parseInt(hex.substring(0, 2), 16),
-        parseInt(hex.substring(2, 4), 16),
-        parseInt(hex.substring(4, 6), 16)
-      ];
-    };
-    const [r1, g1, b1] = parse(hex1);
-    const [r2, g2, b2] = parse(hex2);
-    const r = Math.round(r1 + (r2 - r1) * t);
-    const g = Math.round(g1 + (g2 - g1) * t);
-    const b = Math.round(b1 + (b2 - b1) * t);
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
   }
 
   function updateActiveFrameOnScroll() {
@@ -378,38 +360,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const y3 = el3.offsetTop + el3.offsetHeight / 2;
 
     let currentIdx = 0;
+    let currBg = frames[0].bg;
+    let currGlow = frames[0].glow;
+    let currPulse = frames[0].rgb;
 
     if (scrollCenter <= y0) {
       currentIdx = 0;
-      currentPulseRgb = frames[0].rgb;
+      currBg = frames[0].bg;
+      currGlow = frames[0].glow;
+      currPulse = frames[0].rgb;
       document.body.className = 'theme-gold';
-      document.body.style.backgroundColor = frames[0].color;
     } else if (scrollCenter > y0 && scrollCenter < y1) {
-      // Transition 1: Hero to Red
+      // Transition 1: Hero to Red (Gold -> Oxblood)
       const t = Math.max(0, Math.min(1, (scrollCenter - y0) / (y1 - y0)));
       currentIdx = t < 0.5 ? 0 : 1;
-      currentPulseRgb = lerpRgb(frames[0].rgb, frames[1].rgb, t);
-      document.body.style.backgroundColor = lerpColor(frames[0].color, frames[1].color, t);
+      currBg = [
+        Math.round(frames[0].bg[0] + (frames[1].bg[0] - frames[0].bg[0]) * t),
+        Math.round(frames[0].bg[1] + (frames[1].bg[1] - frames[0].bg[1]) * t),
+        Math.round(frames[0].bg[2] + (frames[1].bg[2] - frames[0].bg[2]) * t)
+      ];
+      currGlow = [
+        Math.round(frames[0].glow[0] + (frames[1].glow[0] - frames[0].glow[0]) * t),
+        Math.round(frames[0].glow[1] + (frames[1].glow[1] - frames[0].glow[1]) * t),
+        Math.round(frames[0].glow[2] + (frames[1].glow[2] - frames[0].glow[2]) * t)
+      ];
+      currPulse = lerpRgb(frames[0].rgb, frames[1].rgb, t);
       document.body.className = t < 0.5 ? 'theme-gold' : 'theme-oxblood';
     } else if (scrollCenter >= y1 && scrollCenter < y2) {
-      // Transition 2: Red to Blue
+      // Transition 2: Red to Blue (Oxblood -> Prussian Sapphire)
       const t = Math.max(0, Math.min(1, (scrollCenter - y1) / (y2 - y1)));
       currentIdx = t < 0.5 ? 1 : 2;
-      currentPulseRgb = lerpRgb(frames[1].rgb, frames[2].rgb, t);
-      document.body.style.backgroundColor = lerpColor(frames[1].color, frames[2].color, t);
+      currBg = [
+        Math.round(frames[1].bg[0] + (frames[2].bg[0] - frames[1].bg[0]) * t),
+        Math.round(frames[1].bg[1] + (frames[2].bg[1] - frames[1].bg[1]) * t),
+        Math.round(frames[1].bg[2] + (frames[2].bg[2] - frames[1].bg[2]) * t)
+      ];
+      currGlow = [
+        Math.round(frames[1].glow[0] + (frames[2].glow[0] - frames[1].glow[0]) * t),
+        Math.round(frames[1].glow[1] + (frames[2].glow[1] - frames[1].glow[1]) * t),
+        Math.round(frames[1].glow[2] + (frames[2].glow[2] - frames[1].glow[2]) * t)
+      ];
+      currPulse = lerpRgb(frames[1].rgb, frames[2].rgb, t);
       document.body.className = t < 0.5 ? 'theme-oxblood' : 'theme-prussian';
     } else if (scrollCenter >= y2 && scrollCenter < y3) {
-      // Transition 3: Blue to White
+      // Transition 3: Blue to White (Prussian Sapphire -> Bone Alabaster)
       const t = Math.max(0, Math.min(1, (scrollCenter - y2) / (y3 - y2)));
       currentIdx = t < 0.5 ? 2 : 3;
-      currentPulseRgb = lerpRgb(frames[2].rgb, frames[3].rgb, t);
-      document.body.style.backgroundColor = lerpColor(frames[2].color, frames[3].color, t);
+      currBg = [
+        Math.round(frames[2].bg[0] + (frames[3].bg[0] - frames[2].bg[0]) * t),
+        Math.round(frames[2].bg[1] + (frames[3].bg[1] - frames[2].bg[1]) * t),
+        Math.round(frames[2].bg[2] + (frames[3].bg[2] - frames[2].bg[2]) * t)
+      ];
+      currGlow = [
+        Math.round(frames[2].glow[0] + (frames[3].glow[0] - frames[2].glow[0]) * t),
+        Math.round(frames[2].glow[1] + (frames[3].glow[1] - frames[2].glow[1]) * t),
+        Math.round(frames[2].glow[2] + (frames[3].glow[2] - frames[2].glow[2]) * t)
+      ];
+      currPulse = lerpRgb(frames[2].rgb, frames[3].rgb, t);
       document.body.className = t < 0.5 ? 'theme-prussian' : 'theme-bone';
     } else {
       currentIdx = 3;
-      currentPulseRgb = frames[3].rgb;
+      currBg = frames[3].bg;
+      currGlow = frames[3].glow;
+      currPulse = frames[3].rgb;
       document.body.className = 'theme-bone';
-      document.body.style.backgroundColor = frames[3].color;
+    }
+
+    // Apply live scroll background & ambient glow in real time
+    const hexBg = '#' + currBg.map(x => x.toString(16).padStart(2, '0')).join('');
+    document.body.style.backgroundColor = hexBg;
+    document.body.style.setProperty('--current-bg', hexBg);
+    document.body.style.setProperty('--ambient-glow', `rgba(${currGlow.join(',')}, 0.16)`);
+    currentPulseRgb = currPulse;
+
+    // Dissolve hero rippled glass backdrop on scroll
+    const heroBackdrop = document.querySelector('.hero-stage-backdrop');
+    if (heroBackdrop) {
+      const fadeLimit = window.innerHeight * 0.75;
+      const hOpacity = Math.max(0, Math.min(1, 1 - window.scrollY / fadeLimit));
+      heroBackdrop.style.opacity = hOpacity;
     }
 
     // Header scrolled blur state
